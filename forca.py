@@ -16,19 +16,11 @@ os.system('cls')
 # Dar ao jogador a opção de jogar novamente após o término do jogo.
 
 palavras_forca = ['Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Sao Paulo', 'Santos', 'Internacional']
+
 armazena_escolha = []
 
-input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
+def introducao():
+    input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
 
-palavra_escolhida = random.choice(palavras_forca).upper()
-print()
-
-for letra in palavra_escolhida:
-    armazena_escolha.append(letra)
-    print(f'{letra}', end='-')
-
-print(armazena_escolha)
-
-for letra_palavra in armazena_escolha:
-    print('_', end='-')
-    letra_usuario = input('Digite uma letra: ').upper()
+if __name__ in '__main__':
+    pass
