@@ -1,6 +1,5 @@
 import os
 import random
-os.system('cls')
 
 # Desafio: Jogo da Forca
 
@@ -15,45 +14,106 @@ os.system('cls')
 # Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa).
 # Dar ao jogador a opção de jogar novamente após o término do jogo.
 
+
 palavras_forca = ['Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
-chances = 5
 armazena_forca = []
 verifica = []
 
 
-input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
-
-forca = random.choice(palavras_forca).upper()
-print(forca)
+def limpa_terminal():
+    os.system('cls')
 
 
-for letra in forca:
-    armazena_forca.append(letra)
+def gera_forca():
+    '''
+    Seleciona a palavra da forca
+    Cria uma copia da palavra com "_" representando a quantidade de letras da palavra
+     '''
+    global forca
+    forca = random.choice(palavras_forca).upper()
+    print(forca)
+    
+    for letra in forca:
+        armazena_forca.append(letra)
 
-for v in armazena_forca:
-    verifica.append('_')
+    for v in armazena_forca:
+        verifica.append('_')     
 
-while chances > 0:
-    for i in range(0,chances):
-        print(verifica)
+    return forca
+
+
+def introducao():
+    '''Mensagem de introdução para inicializar o jogo'''
+    input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
+
+
+ 
+def armazena_tentativa():
+    global chances
+    global limite
+    chances = 0
+    limite = int(input('Número de Tentativas: '))
+    return chances, limite
+
+def verifica_chute(limite, chances):
+    print(verifica)
+
+    while limite != 0:
         chute_usuario = input('Digite uma letra: ').upper()
 
+        if len(chute_usuario) > 1:
+            limpa_terminal()
+            print('DIGITE UMA LETRA POR VEZ!')
+            return chute_usuario
+        
+        else:
+            pass
+        
         if chute_usuario in armazena_forca:
+                    
             posicao_letra = armazena_forca.index(chute_usuario) + 1
             print(posicao_letra)
-            
-            for under in verifica:
-                verifica[posicao_letra - 1] = chute_usuario
-                
             print('ACERTOU')
-
+            for under in verifica:
+                verifica[posicao_letra - 1] = chute_usuario     
+                
+                
         else:
-            chances = chances - 1
-            print(f'ERROU, RESTAM {chances} de 5')
+            '''Tenho que arrumar essa mensagem para exibir a quantidade correta, conforme o usuario for errando a letra, o calculo no momento está incorreto'''
+            limpa_terminal()
 
-else:
-    print('FIM DE JOGO! VOCÊ PERDEU')
+            print(f'ERROU! RESTAM {limite} DE {chances} TENTATIVAS')
+            return verifica_chute(limite, chances)
+       
+
+def verifica_tentivas():
+    '''
+    Verificar o número de tentativas e se o valor é valido, caso retorne True, o jogo se iniciara
+    '''
+    try:
+        armazena_tentativa()
+    except:
+        limpa_terminal()
+        print('INFORME UM NÚMERO DE 1 A 15!')
+        return verifica_tentivas()
+
+    if limite < 1 or limite > 15:
+        print('INFORME UM VALOR ENTRE 1 E 15!')    
+        return limpa_terminal(),limite
+    
+    else:
+            verifica_chute(limite, chances)
 
 
+    
+
+def jogo():
+    limpa_terminal()
+    gera_forca()
+    introducao()
+    verifica_tentivas()
+    
 print(armazena_forca)
-# if __name__ in '__main__':
+if __name__ in '__main__':
+    jogo()
+    
