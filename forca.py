@@ -59,40 +59,22 @@ def verifica_chute(limite, chances, forca):
     print(forca)
 
     while limite != 0:
-        chute_usuario = input('Digite uma letra: ').upper()
-
-        if len(chute_usuario) > 1:
-            limpa_terminal()
-            print('DIGITE UMA LETRA POR VEZ!')
-            return verifica_chute(limite, chances, forca)
-        
-        else:
-            pass
+        chute_usuario = input('Digite uma letra: ').capitalize()
         
         if chute_usuario in armazena_forca:
-            limpa_terminal()
-            posicao_letra = armazena_forca.index(chute_usuario) + 1
-            print(posicao_letra)
-            print('ACERTOU')
-                    
-            for under in verifica:
-                verifica[posicao_letra - 1] = chute_usuario 
+            for indice ,letra in enumerate(armazena_forca):
+                if letra.capitalize() == chute_usuario.capitalize():
+                    limpa_terminal()
+                    print(indice)
+                    print(letra)
+                    print('ACERTOU!')
+                    verifica[indice] = letra
+                    return verifica_chute(limite, chances, forca)
 
-            if armazena_forca == verifica:
-                print('VOCÊ GANHOU!')
-                break
-            else: 
-                return verifica_chute(limite, chances, forca)
-    
-                
-                
         else:
-            '''Tenho que arrumar essa mensagem para exibir a quantidade correta, conforme o usuario for errando a letra, o calculo no momento está incorreto'''
             limpa_terminal()
-
-            print(f'ERROU! RESTAM {limite} DE {chances} TENTATIVAS')
+            print('ERROU!')
             return verifica_chute(limite, chances, forca)
-       
 
 def verifica_tentivas():
     '''
