@@ -14,7 +14,7 @@ import random
 # Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa).
 # Dar ao jogador a opção de jogar novamente após o término do jogo.
 
-palavras_forca = ['Flamengo', 'Vasco', 'Gremio']
+palavras_forca = ['Flamengo', 'Vasco', 'Gremio','Palmeiras']
 
 # palavras_forca = ['Botafogo','Bragantino','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
 armazena_forca = []
@@ -56,37 +56,51 @@ def armazena_tentativa():
     limite = int(input('Número de Tentativas: '))
     return chances, limite
 
-def verifica_chute(limite, chances, forca):
+def letra_existe(chute_usuario):
+    for indice ,letra in enumerate(armazena_forca):
+        if letra.capitalize() == chute_usuario.capitalize():
+            limpa_terminal()
+            print(indice)
+            print(letra)
+            print('ACERTOU!')
+            armazena_forca[indice] = '!'
+            verifica[indice] = letra
+
+            for l in forca:
+                ver.append(l)
+
+            return verifica_chute(forca)
+        
+def letra_nao_existe():
+        
+        limpa_terminal()
+        limite - 1
+        print('ERROU!')
+        print(f'RESTAM {limite} TENTATIVAS!')
+        return verifica_chute(forca)
+
+
+
+def verifica_chute(forca):
     print(verifica)
+    print(armazena_forca)
     print(forca)
 
     while verifica == ver:
-        print(f'PARABÉNS,VOCÊ ACERTOU A FORCA "{armazena_forca}"')
+        print(f'PARABÉNS,VOCÊ ACERTOU A FORCA "{forca}"')
         break
     else:
         ver.clear()
         chute_usuario = input('Digite uma letra: ').capitalize()
-        
-        if chute_usuario in armazena_forca:
-            for indice ,letra in enumerate(armazena_forca):
-                if letra.capitalize() == chute_usuario.capitalize():
-                    limpa_terminal()
-                    print(indice)
-                    print(letra)
-                    print('ACERTOU!')
-                    verifica[indice] = letra
-                    for l in forca:
-                        ver.append(l)
 
-                    return verifica_chute(limite, chances, forca)
+        if chute_usuario in armazena_forca:
+            letra_existe(chute_usuario)
 
         else:
-            limpa_terminal()
-            limite - 1
-            print('ERROU!')
-            print(f'RESTAM {limite} TENTATIVAS!')
-            return verifica_chute(limite, chances, forca)
-        
+            letra_nao_existe()
+
+    
+
 
 def verifica_tentivas():
     '''
@@ -104,7 +118,7 @@ def verifica_tentivas():
         return verifica_tentivas()
     
     else:
-            verifica_chute(limite, chances, forca)
+            verifica_chute(forca)
 
 
     
