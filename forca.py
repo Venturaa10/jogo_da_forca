@@ -31,7 +31,6 @@ def gera_forca():
      '''
     global forca
     forca = random.choice(palavras_forca).upper()
-    print(forca)
     
     for letra in forca:
         armazena_forca.append(letra)
@@ -55,8 +54,9 @@ def armazena_tentativa():
     limite = int(input('Número de Tentativas: '))
     return chances, limite
 
-def verifica_chute(limite, chances):
+def verifica_chute(limite, chances, forca):
     print(verifica)
+    print(forca)
 
     while limite != 0:
         chute_usuario = input('Digite uma letra: ').upper()
@@ -64,18 +64,26 @@ def verifica_chute(limite, chances):
         if len(chute_usuario) > 1:
             limpa_terminal()
             print('DIGITE UMA LETRA POR VEZ!')
-            return chute_usuario
+            return verifica_chute(limite, chances, forca)
         
         else:
             pass
         
         if chute_usuario in armazena_forca:
-                    
+            limpa_terminal()
             posicao_letra = armazena_forca.index(chute_usuario) + 1
             print(posicao_letra)
             print('ACERTOU')
+                    
             for under in verifica:
-                verifica[posicao_letra - 1] = chute_usuario     
+                verifica[posicao_letra - 1] = chute_usuario 
+
+            if armazena_forca == verifica:
+                print('VOCÊ GANHOU!')
+                break
+            else: 
+                return verifica_chute(limite, chances, forca)
+    
                 
                 
         else:
@@ -83,28 +91,26 @@ def verifica_chute(limite, chances):
             limpa_terminal()
 
             print(f'ERROU! RESTAM {limite} DE {chances} TENTATIVAS')
-            return verifica_chute(limite, chances)
+            return verifica_chute(limite, chances, forca)
        
 
 def verifica_tentivas():
     '''
     Verificar o número de tentativas e se o valor é valido, caso retorne True, o jogo se iniciara
     '''
+    limpa_terminal()
+    print('INFORME UM NÚMERO DE 3 A 15!')
 
     try:
         armazena_tentativa()
     except:
-        limpa_terminal()
-        print('INFORME UM NÚMERO DE 1 A 15!')
         return verifica_tentivas()
 
-    if limite < 1 or limite > 15:
-        limpa_terminal()
-        print('INFORME UM VALOR ENTRE 1 E 15!')    
+    if limite < 3 or limite > 15:
         return verifica_tentivas()
     
     else:
-            verifica_chute(limite, chances)
+            verifica_chute(limite, chances, forca)
 
 
     
