@@ -66,9 +66,6 @@ def letra_existe(chute_usuario):
                 print('ACERTOU!')
                 armazena_forca[indice] = '!'
                 verifica[indice] = letra
-            
-        for l in forca:
-            ver.append(l)
 
     else:
         return verifica_chute(forca)
@@ -82,27 +79,37 @@ def letra_nao_existe():
         return verifica_chute(forca)
 
 
-
 def verifica_chute(forca):
+    for l in forca:
+        ver.append(l)
+
+    print(ver)
     print(verifica)
     print(armazena_forca)
     print(forca)
 
-    while verifica == ver:
-        print(f'PARABÉNS,VOCÊ ACERTOU A FORCA "{forca}"')
-        break
-    else:
+    while verifica != ver:
         ver.clear()
         chute_usuario = input('Digite uma letra: ').capitalize()
-
-        if chute_usuario in armazena_forca:
-            letra_existe(chute_usuario)
-
-        else:
-            letra_nao_existe()
-
     
+        if len(chute_usuario) == 1:
+            if chute_usuario in armazena_forca:
+                letra_existe(chute_usuario)
 
+            else:
+                letra_nao_existe()
+
+        elif len(chute_usuario) < 1:
+            limpa_terminal()
+            print('INFORME UMA LETRA!')
+            return verifica_chute(forca)
+        
+        elif len(chute_usuario) > 1:
+            limpa_terminal()
+            print('DIGITE AO MENOS UMA LETRA POR VEZ!')
+            return verifica_chute(forca)
+
+        # print(f'PARABÉNS,VOCÊ ACERTOU A FORCA "{forca}"')
 
 def verifica_tentivas():
     '''
@@ -120,7 +127,7 @@ def verifica_tentivas():
         return verifica_tentivas()
     
     else:
-            verifica_chute(forca)
+        verifica_chute(forca)
 
 
     
