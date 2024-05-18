@@ -14,10 +14,12 @@ import random
 # Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa).
 # Dar ao jogador a opção de jogar novamente após o término do jogo.
 
+palavras_forca = ['Flamengo', 'Vasco', 'Gremio']
 
-palavras_forca = ['Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
+# palavras_forca = ['Botafogo','Bragantino','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
 armazena_forca = []
 verifica = []
+ver = []
 
 
 def limpa_terminal():
@@ -58,7 +60,11 @@ def verifica_chute(limite, chances, forca):
     print(verifica)
     print(forca)
 
-    while limite != 0:
+    while verifica == ver:
+        print(f'PARABÉNS,VOCÊ ACERTOU A FORCA "{armazena_forca}"')
+        break
+    else:
+        ver.clear()
         chute_usuario = input('Digite uma letra: ').capitalize()
         
         if chute_usuario in armazena_forca:
@@ -69,12 +75,18 @@ def verifica_chute(limite, chances, forca):
                     print(letra)
                     print('ACERTOU!')
                     verifica[indice] = letra
+                    for l in forca:
+                        ver.append(l)
+
                     return verifica_chute(limite, chances, forca)
 
         else:
             limpa_terminal()
+            limite - 1
             print('ERROU!')
+            print(f'RESTAM {limite} TENTATIVAS!')
             return verifica_chute(limite, chances, forca)
+        
 
 def verifica_tentivas():
     '''
