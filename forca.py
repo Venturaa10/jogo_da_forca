@@ -90,6 +90,7 @@ def verifica_tentivas():
     '''
     Verificar o número de tentativas e se o valor é valido, caso retorne True, o jogo se iniciara
     '''
+
     try:
         armazena_tentativa()
     except:
@@ -98,8 +99,9 @@ def verifica_tentivas():
         return verifica_tentivas()
 
     if limite < 1 or limite > 15:
+        limpa_terminal()
         print('INFORME UM VALOR ENTRE 1 E 15!')    
-        return limpa_terminal(),limite
+        return verifica_tentivas()
     
     else:
             verifica_chute(limite, chances)
