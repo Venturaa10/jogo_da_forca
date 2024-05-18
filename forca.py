@@ -14,7 +14,7 @@ import random
 # Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa).
 # Dar ao jogador a opção de jogar novamente após o término do jogo.
 
-palavras_forca = ['Flamengo', 'Vasco', 'Gremio','Palmeiras']
+palavras_forca = ['Flamengo', 'Vasco', 'Gremio','Palmeiras', 'Botafogo', 'Fluminense']
 
 # palavras_forca = ['Botafogo','Bragantino','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
 armazena_forca = []
@@ -57,19 +57,21 @@ def armazena_tentativa():
     return chances, limite
 
 def letra_existe(chute_usuario):
-    for indice ,letra in enumerate(armazena_forca):
-        if letra.capitalize() == chute_usuario.capitalize():
-            limpa_terminal()
-            print(indice)
-            print(letra)
-            print('ACERTOU!')
-            armazena_forca[indice] = '!'
-            verifica[indice] = letra
+    while chute_usuario in armazena_forca:
+        for indice ,letra in enumerate(armazena_forca):
+            if letra.capitalize() == chute_usuario.capitalize():
+                limpa_terminal()
+                print(indice)
+                print(letra)
+                print('ACERTOU!')
+                armazena_forca[indice] = '!'
+                verifica[indice] = letra
+            
+        for l in forca:
+            ver.append(l)
 
-            for l in forca:
-                ver.append(l)
-
-            return verifica_chute(forca)
+    else:
+        return verifica_chute(forca)
         
 def letra_nao_existe():
         
