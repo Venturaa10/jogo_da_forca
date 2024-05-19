@@ -20,7 +20,7 @@ lista_palavras = ['Flamengo', 'Vasco', 'Gremio','Palmeiras', 'Botafogo', 'Flumin
 armazena_forca = []
 verifica = []
 ver = []
-
+chutes_errados = []
 
 def limpa_terminal():
     os.system('cls')
@@ -61,12 +61,25 @@ def letra_existe(chute_usuario):
 
     else:
         return verifica_chute(palavra_forca)
-        
+
+def chute_repetido(chute_usuario):
+    limpa_terminal()
+    print(f'A LETRA "{chute_usuario}" JÁ FOI INSERIDA!\n')
+    return verifica_chute(palavra_forca)
+
+def chute_errado_repetido(chute_usuario):
+        limpa_terminal()
+        print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA E JÁ FOI INFORMADA ANTERIORMENTE!')
+        print('INFORME UMA LETRA DIFERENTE!\n')
+        return verifica_chute(palavra_forca)
+
+
 def letra_nao_existe(chute_usuario):
     
     limpa_terminal()
+    chutes_errados.append(chute_usuario)
     print('ERROU!')
-    print(f'A LETRA {chute_usuario} NÃO EXISTE NA PALAVRA!\n')
+    print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA!\n')
     return verifica_chute(palavra_forca)
 
 def mensagem_ganhou():
@@ -93,11 +106,13 @@ def verifica_chute(palavra_forca):
     if len(chute_usuario) == 1:
         if chute_usuario in armazena_forca:
             letra_existe(chute_usuario)
+
         elif chute_usuario in verifica:
-            limpa_terminal()
-            print(f'A LETRA {chute_usuario} JÁ FOI INSERIDA!')
-            return verifica_chute(palavra_forca)
-        
+            chute_repetido(chute_usuario)
+
+        elif chute_usuario in chutes_errados:
+            chute_errado_repetido(chute_usuario)
+
         else:
             letra_nao_existe(chute_usuario)
 
