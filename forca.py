@@ -20,6 +20,7 @@ palavras_forca = ['Flamengo', 'Vasco', 'Gremio','Palmeiras', 'Botafogo', 'Flumin
 armazena_forca = []
 verifica = []
 ver = []
+tentativas = 0
 
 
 def limpa_terminal():
@@ -37,7 +38,7 @@ def gera_forca():
     for letra in forca:
         armazena_forca.append(letra)
 
-    for v in armazena_forca:
+    for i in armazena_forca:
         verifica.append('_')     
 
     return forca
@@ -65,19 +66,15 @@ def letra_existe(chute_usuario):
 def letra_nao_existe():
     
     limpa_terminal()
-    if errou > 0:
-        print('ERROU!')
-        print(f'RESTAM {errou} de {limite} TENTATIVAS!')
-        return verifica_chute(forca)
+    input('ERROU!')
+    return verifica_chute(forca)
 
-    else:
-        limpa_terminal()
-        print(f'LIMITE DE {limite} TENTATIVAS ATINGIDA!')
-        print(f'VOCÊ PERDEU, A PALAVRA ERA {forca}!')
+def mensagem_ganhou():
+    limpa_terminal()
+    print(f'PARABÉNS,VOCÊ ACERTOU A PALAVRA "{forca}"')
 
 
 def verifica_chute(forca):
-    global errou
 
     for l in forca:
         ver.append(l)
@@ -87,39 +84,40 @@ def verifica_chute(forca):
     print(armazena_forca)
     print(forca)
 
-    for t in range(0, limite):
-        while verifica != ver:
-            ver.clear()
-            chute_usuario = input('Digite uma letra: ').capitalize().strip()
+
+    if verifica == ver:
+        return mensagem_ganhou()
         
-            if len(chute_usuario) == 1:
-                if chute_usuario in armazena_forca:
-                    letra_existe(chute_usuario)
+    else:
+        pass
 
-                else:
-                    errou = limite - 1
-                    letra_nao_existe()
 
-            elif len(chute_usuario) < 1:
-                limpa_terminal()
-                print('INFORME UMA LETRA!')
-                return verifica_chute(forca)
-            
-            else:
-                limpa_terminal()
-                print('DIGITE AO MENOS UMA LETRA POR VEZ!')
-                return verifica_chute(forca)
-    
+    ver.clear()
+    chute_usuario = input('Digite uma letra: ').capitalize().strip()
+        
+    if len(chute_usuario) == 1:
+        if chute_usuario in armazena_forca:
+            letra_existe(chute_usuario)
+
+        else:
+            letra_nao_existe()
+
+    elif len(chute_usuario) < 1:
         limpa_terminal()
-        print(f'PARABÉNS,VOCÊ ACERTOU A PALAVRA "{forca}"')
+        print('INFORME UMA LETRA!')
+        return verifica_chute(forca)
+            
+    else:
+        limpa_terminal()
+        print('DIGITE AO MENOS UMA LETRA POR VEZ!')
+        return verifica_chute(forca)
     
-    return errou
 
+    
 
 def verifica_tentivas():
-    global limite
     '''
-    Verificar o número de tentativas e se o valor é valido, caso retorne True, o jogo se iniciara
+    Verifica o número de tentativas e se o valor é valido, caso retorne True, o jogo se iniciara
     '''
     limpa_terminal()
     print('INFORME UM LIMITE DE TENTATIVAS ENTRE 3 E 15!')
