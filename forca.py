@@ -9,14 +9,12 @@ import random
 # Mostrar ao jogador a quantidade de letras na palavra escolhida, substituindo as letras por traços (-). (FEITO)
 # Permitir que o jogador insira uma letra por vez. (FEITO)
 # Verificar se a letra inserida está presente na palavra. Se estiver, substituir o traço correspondente pela letra. (FEITO)
-# Se a letra não estiver presente na palavra, contar como um erro. ()
+# Se a letra não estiver presente na palavra, contar como um erro. (FEITO)
 # Mostrar ao jogador a palavra parcialmente preenchida, as letras já tentadas e o número de erros. (FEITO)
-# Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa).
+# Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa). (FEITO)
 # Dar ao jogador a opção de jogar novamente após o término do jogo.
 
-lista_palavras = ['Flamengo', 'Vasco', 'Gremio','Palmeiras', 'Botafogo', 'Fluminense']
-
-# lista_palavras = ['Botafogo','Bragantino','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
+lista_palavras = ['Botafogo','Bragantino','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
 armazena_forca = []
 verifica = []
 ver = []
@@ -48,6 +46,7 @@ def introducao():
     '''MENSAGEM DE INTRODUÇÃO PARA INICIALIZAR O JOGO'''
     input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
 
+
 def dificuldade_escolhida(texto):
     print(f'DIFICULDADE: {texto}\n')
         
@@ -57,12 +56,7 @@ def verifica_tentivas(tentativas):
     - RECEBER E VALIDAR O NÚMERO DE TENTATIVAS QUE O USUARIO FORNECEU, OCORRERA UM TRATAMENTO DE ERRO CASO O VALOR NÃO SEJA UM NÚMERO
     '''
     global nivel
-    print('''
-          DIFICULDADES
-        1 - FÁCIL
-        2 - INTERMEDIARIO
-        3 - DIFÍCIL
-        ''')
+    exibe_niveis()
 
     try:
         nivel = int(input('INFORME A DIFICULDADE: '))
@@ -98,8 +92,6 @@ def verifica_tentivas(tentativas):
         verifica_tentivas(tentativas)
 
 
-    # verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
-
     return nivel, tentativas, total_tentativas
     
 
@@ -110,16 +102,14 @@ def verifica_chute(palavra_forca, texto, tentativas, total_tentativas):
     - A LISTA ver É APENAS PARA ARMAZENAR TODAS AS LETRAS DA palavra_forca, CASO A LISTA verifica SEJA IGUAL A LISTA ver SIGNIFICA QUE O USUARIO ACERTOU A PALAVRA, SE NÃO O PROGRAMA CONTINUARA SENDO EXECUTADO, TODA VEZ QUE A FUNÇÃO FOR EXECUTADA A LISTA ver SERÁ LIMPA COM O METODO .clear PARA EVITAR QUE O OCORRA UM ACUMULO DE LETRAS DA palavra_forca
     - A LISTA ver SERVE APENAS PARA FAZER ESSA VALIDAÇÃO, POIS NELA FICA ARMAZENADO AS LETRAS SEM QUE OCORRA ALTERAÇÃO NA LISTA, ENTÃO QUANDO ESSA LISTA E A verifica FOREM IGUAIS, SIGNIFICA QUE O USUARIO ACERTOU
     '''
+    exibe_tentativas(tentativas, total_tentativas)
     dificuldade_escolhida(texto)
+
+    print(verifica)
 
     for l in palavra_forca:
         ver.append(l)
 
-    print(ver)
-    print(verifica)
-    print(armazena_forca)
-    print(palavra_forca)
-    
     if verifica == ver:
         return mensagem_ganhou()
     elif tentativas == 0:
@@ -168,9 +158,7 @@ def letra_existe(chute_usuario, texto, tentativas, total_tentativas):
         for indice ,letra in enumerate(armazena_forca):
             if letra.capitalize() == chute_usuario.capitalize():
                 limpa_terminal()
-                print(indice)
-                print(letra)
-                print('ACERTOU!')
+                print('ACERTOU!\n')
                 armazena_forca[indice] = '!'
                 verifica[indice] = letra
 
@@ -191,8 +179,7 @@ def chute_errado_repetido(chute_usuario, texto, tentativas, total_tentativas):
         tentativas -= 1
         print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA E JÁ FOI INFORMADA ANTERIORMENTE!')
         print('INFORME UMA LETRA DIFERENTE!\n')
-        print(f'RESTAM {tentativas} TENTATIVAS DE {total_tentativas}!')
-
+        
         return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
 
 
@@ -206,9 +193,21 @@ def letra_nao_existe(chute_usuario, texto, tentativas, total_tentativas):
     chutes_errados.append(chute_usuario)
     print('ERROU!')
     print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA!\n')
+    return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+
+
+def exibe_tentativas(tentativas, total_tentativas):
     print(f'RESTAM {tentativas} TENTATIVAS DE {total_tentativas}!')
 
-    return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+
+def exibe_niveis():
+    '''FUNÇÃO RESPONSAVEL APENAS POR EXIBIR OS NIVIES DE DIFICULDADES'''
+    print("""
+            DIFICULDADES
+            1 - FÁCIL --> 15 Chances
+            2 - INTERMEDIARIO --> 10 Chances
+            3 - DIFÍCIL --> 5 Chances
+            """)
 
 
 def mensagem_ganhou():
@@ -220,8 +219,9 @@ def mensagem_ganhou():
 def mensagem_perdeu(total_tentativas, palavra_forca):
     limpa_terminal()
     print('FIM DE JOGO, VOCÊ PERDEU :( ')
-    print(f'VOCÊ USOU TODAS AS {total_tentativas} ANTES DE DESCOBRIR A PALAVRA FORCA!')
+    print(f'VOCÊ USOU TODAS AS SUAS {total_tentativas} TENTATIVAS ANTES DE DESCOBRIR A PALAVRA FORCA!')
     print(f'A PALAVRA FORCA ERA "{palavra_forca}"')
+
 
 def jogo():
     limpa_terminal()
