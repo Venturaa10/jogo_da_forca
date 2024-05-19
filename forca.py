@@ -119,12 +119,15 @@ def verifica_chute(palavra_forca, texto, tentativas, total_tentativas):
     print(verifica)
     print(armazena_forca)
     print(palavra_forca)
-
+    
     if verifica == ver:
         return mensagem_ganhou()
+    elif tentativas == 0:
+        mensagem_perdeu(total_tentativas, palavra_forca)
+    else:
+        pass
     
     for chute in range(0, tentativas):
-            
         ver.clear()
         chute_usuario = input('Digite uma letra: ').capitalize().strip()
         
@@ -141,12 +144,12 @@ def verifica_chute(palavra_forca, texto, tentativas, total_tentativas):
             else:
                 letra_nao_existe(chute_usuario, texto, tentativas, total_tentativas)
 
-                        
+                            
         elif len(chute_usuario) < 1:
             limpa_terminal()
             print('INFORME UMA LETRA!')
             return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
-                    
+                        
         else:
             limpa_terminal()
             print('DIGITE AO MENOS UMA LETRA POR VEZ!')
@@ -214,6 +217,11 @@ def mensagem_ganhou():
     print(f'PARABÉNS,VOCÊ ACERTOU A PALAVRA "{palavra_forca}"')
 
 
+def mensagem_perdeu(total_tentativas, palavra_forca):
+    limpa_terminal()
+    print('FIM DE JOGO, VOCÊ PERDEU :( ')
+    print(f'VOCÊ USOU TODAS AS {total_tentativas} ANTES DE DESCOBRIR A PALAVRA FORCA!')
+    print(f'A PALAVRA FORCA ERA "{palavra_forca}"')
 
 def jogo():
     limpa_terminal()
