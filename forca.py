@@ -49,109 +49,8 @@ def introducao():
     input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
 
 def dificuldade_escolhida(texto):
-        limpa_terminal()
-        print(f'DIFICULDADE: {texto}\n')
+    print(f'DIFICULDADE: {texto}\n')
         
-def letra_existe(chute_usuario):
-    '''FUNÇÃO RESPONSAVEL POR:
-    - INFORMAR QUE O CHUTE É CORRETO
-    - ADICIONAR A LETRA NA LISTA verifica QUE ARMAZENA A FORMAÇÃO DA PALAVRA CORRETA E NA MESMA POSIÇÃO EM QUE ESTÁ PRESENTE NA LISTA armazena_forca, DE ACORDO COM OS ACERTOS DO USUARIO
-    - REMOVE E SUBSTITUI O CHUTE DO USUARIO DA PALAVRA QUE ARMAZENA FORCA, COM ISSO CASO DETERMINADA LETRA TENHA MAIS DE UMA OCORRENCIA NA PALAVRA, TODOS AS SUAS OCORRENCIAS SERAM ACRESCENTADAS NA LISTA QUE FORMA A PALAVRA CORRETA E REMOVIDAS DA LISTA armazena_forca EM UM ÚNICO CHUTE DO USUARIO
-    '''
-    while chute_usuario in armazena_forca:
-        for indice ,letra in enumerate(armazena_forca):
-            if letra.capitalize() == chute_usuario.capitalize():
-                limpa_terminal()
-                print(indice)
-                print(letra)
-                print('ACERTOU!')
-                armazena_forca[indice] = '!'
-                verifica[indice] = letra
-
-    else:
-        return verifica_chute(palavra_forca)
-
-def chute_repetido(chute_usuario):
-    '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES CERTOS REPETIDOS'''
-    limpa_terminal()
-    print(f'A LETRA "{chute_usuario}" JÁ FOI INSERIDA!\n')
-    return verifica_chute(palavra_forca)
-
-def chute_errado_repetido(chute_usuario):
-        '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES ERRADOS REPETIDOS'''
-        limpa_terminal()
-        print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA E JÁ FOI INFORMADA ANTERIORMENTE!')
-        print('INFORME UMA LETRA DIFERENTE!\n')
-        return verifica_chute(palavra_forca)
-
-
-def letra_nao_existe(chute_usuario):
-    '''FUNÇÃO RESPONSAVEL POR:
-    - SUBTRAIR A TENTATIVA DO USUARIO
-    - INFORMA QUE O CHUTE ESTÁ INCORRETO
-    '''
-    limpa_terminal()
-    chutes_errados.append(chute_usuario)
-    print('ERROU!')
-    print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA!\n')
-    return verifica_chute(palavra_forca)
-
-def mensagem_ganhou():
-    '''FUNÇÃO RESPONSAVEL POR EXIBIR UMA MENSAGEM POSITIVA CASO O USUARIO ACERTE A PALAVRA'''
-    limpa_terminal()
-    print(f'PARABÉNS,VOCÊ ACERTOU A PALAVRA "{palavra_forca}"')
-
-
-def verifica_chute(palavra_forca):
-    '''FUNÇÃO RESPONSAVEL POR:
-    - VALIDAR O CHUTE DO USUARIO
-    - EXECUTAR DETERMINADA FUNÇÃO DE ACORDO COM O CHUTE DO USUARIO
-    - A LISTA ver É APENAS PARA ARMAZENAR TODAS AS LETRAS DA palavra_forca, CASO A LISTA verifica SEJA IGUAL A LISTA ver SIGNIFICA QUE O USUARIO ACERTOU A PALAVRA, SE NÃO O PROGRAMA CONTINUARA SENDO EXECUTADO, TODA VEZ QUE A FUNÇÃO FOR EXECUTADA A LISTA ver SERÁ LIMPA COM O METODO .clear PARA EVITAR QUE O OCORRA UM ACUMULO DE LETRAS DA palavra_forca
-    - A LISTA ver SERVE APENAS PARA FAZER ESSA VALIDAÇÃO, POIS NELA FICA ARMAZENADO AS LETRAS SEM QUE OCORRA ALTERAÇÃO NA LISTA, ENTÃO QUANDO ESSA LISTA E A verifica FOREM IGUAIS, SIGNIFICA QUE O USUARIO ACERTOU
-    '''
-    dificuldade_escolhida(texto=nivel)
-
-    for l in palavra_forca:
-        ver.append(l)
-
-    print(ver)
-    print(verifica)
-    print(armazena_forca)
-    print(palavra_forca)
-
-    if verifica == ver:
-        return mensagem_ganhou()
-        
-    ver.clear()
-    chute_usuario = input('Digite uma letra: ').capitalize().strip()
-        
-    if len(chute_usuario) == 1:
-        if chute_usuario in armazena_forca:
-            letra_existe(chute_usuario)
-
-        elif chute_usuario in verifica:
-            chute_repetido(chute_usuario)
-
-        elif chute_usuario in chutes_errados:
-            chute_errado_repetido(chute_usuario)
-
-        else:
-            letra_nao_existe(chute_usuario)
-
-                    
-    elif len(chute_usuario) < 1:
-        limpa_terminal()
-        print('INFORME UMA LETRA!')
-        return verifica_chute(palavra_forca)
-                
-    else:
-        limpa_terminal()
-        print('DIGITE AO MENOS UMA LETRA POR VEZ!')
-        return verifica_chute(palavra_forca)
-    
-    return chute_usuario
-
-    
 
 def verifica_tentivas(tentativas):
     '''FUNÇÃO RESPONSAVEL POR:
@@ -175,18 +74,21 @@ def verifica_tentivas(tentativas):
 
     if nivel == 1:
         tentativas = 15
-        dificuldade_escolhida('FÁCIL')
-        verifica_chute(palavra_forca)
+        texto = 'FÁCIL'
+        limpa_terminal()
+        verifica_chute(palavra_forca, texto)
         
     elif nivel == 2:
         tentativas = 10
-        dificuldade_escolhida('INTERMEDIARIO')
-        verifica_chute(palavra_forca)
+        texto = 'INTERMEDIARIO'
+        limpa_terminal()
+        verifica_chute(palavra_forca, texto)
 
     elif nivel == 3:
         tentativas = 5
-        dificuldade_escolhida('DIFÍCIL')
-        verifica_chute(palavra_forca)
+        texto = 'DIFÍCIL'
+        limpa_terminal()
+        verifica_chute(palavra_forca, texto)
 
     else:
         limpa_terminal()
@@ -194,9 +96,112 @@ def verifica_tentivas(tentativas):
         verifica_tentivas(tentativas)
 
 
-    # verifica_chute(palavra_forca)
+    # verifica_chute(palavra_forca, texto)
 
     return nivel
+    
+        
+
+def letra_existe(chute_usuario, texto):
+    '''FUNÇÃO RESPONSAVEL POR:
+    - INFORMAR QUE O CHUTE É CORRETO
+    - ADICIONAR A LETRA NA LISTA verifica QUE ARMAZENA A FORMAÇÃO DA PALAVRA CORRETA E NA MESMA POSIÇÃO EM QUE ESTÁ PRESENTE NA LISTA armazena_forca, DE ACORDO COM OS ACERTOS DO USUARIO
+    - REMOVE E SUBSTITUI O CHUTE DO USUARIO DA PALAVRA QUE ARMAZENA FORCA, COM ISSO CASO DETERMINADA LETRA TENHA MAIS DE UMA OCORRENCIA NA PALAVRA, TODOS AS SUAS OCORRENCIAS SERAM ACRESCENTADAS NA LISTA QUE FORMA A PALAVRA CORRETA E REMOVIDAS DA LISTA armazena_forca EM UM ÚNICO CHUTE DO USUARIO
+    '''
+    while chute_usuario in armazena_forca:
+        for indice ,letra in enumerate(armazena_forca):
+            if letra.capitalize() == chute_usuario.capitalize():
+                limpa_terminal()
+                print(indice)
+                print(letra)
+                print('ACERTOU!')
+                armazena_forca[indice] = '!'
+                verifica[indice] = letra
+
+    else:
+        return verifica_chute(palavra_forca, texto)
+
+def chute_repetido(chute_usuario, texto):
+    '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES CERTOS REPETIDOS'''
+    limpa_terminal()
+    print(f'A LETRA "{chute_usuario}" JÁ FOI INSERIDA!\n')
+    return verifica_chute(palavra_forca, texto)
+
+
+def chute_errado_repetido(chute_usuario, texto):
+        '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES ERRADOS REPETIDOS'''
+        limpa_terminal()
+        print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA E JÁ FOI INFORMADA ANTERIORMENTE!')
+        print('INFORME UMA LETRA DIFERENTE!\n')
+        return verifica_chute(palavra_forca, texto)
+
+
+def letra_nao_existe(chute_usuario, texto):
+    '''FUNÇÃO RESPONSAVEL POR:
+    - SUBTRAIR A TENTATIVA DO USUARIO
+    - INFORMA QUE O CHUTE ESTÁ INCORRETO
+    '''
+    limpa_terminal()
+    chutes_errados.append(chute_usuario)
+    print('ERROU!')
+    print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA!\n')
+    return verifica_chute(palavra_forca, texto)
+
+def mensagem_ganhou():
+    '''FUNÇÃO RESPONSAVEL POR EXIBIR UMA MENSAGEM POSITIVA CASO O USUARIO ACERTE A PALAVRA'''
+    limpa_terminal()
+    print(f'PARABÉNS,VOCÊ ACERTOU A PALAVRA "{palavra_forca}"')
+
+
+def verifica_chute(palavra_forca, texto):
+    '''FUNÇÃO RESPONSAVEL POR:
+    - VALIDAR O CHUTE DO USUARIO
+    - EXECUTAR DETERMINADA FUNÇÃO DE ACORDO COM O CHUTE DO USUARIO
+    - A LISTA ver É APENAS PARA ARMAZENAR TODAS AS LETRAS DA palavra_forca, CASO A LISTA verifica SEJA IGUAL A LISTA ver SIGNIFICA QUE O USUARIO ACERTOU A PALAVRA, SE NÃO O PROGRAMA CONTINUARA SENDO EXECUTADO, TODA VEZ QUE A FUNÇÃO FOR EXECUTADA A LISTA ver SERÁ LIMPA COM O METODO .clear PARA EVITAR QUE O OCORRA UM ACUMULO DE LETRAS DA palavra_forca
+    - A LISTA ver SERVE APENAS PARA FAZER ESSA VALIDAÇÃO, POIS NELA FICA ARMAZENADO AS LETRAS SEM QUE OCORRA ALTERAÇÃO NA LISTA, ENTÃO QUANDO ESSA LISTA E A verifica FOREM IGUAIS, SIGNIFICA QUE O USUARIO ACERTOU
+    '''
+    dificuldade_escolhida(texto)
+
+    for l in palavra_forca:
+        ver.append(l)
+
+    print(ver)
+    print(verifica)
+    print(armazena_forca)
+    print(palavra_forca)
+
+    if verifica == ver:
+        return mensagem_ganhou()
+        
+    ver.clear()
+    chute_usuario = input('Digite uma letra: ').capitalize().strip()
+        
+    if len(chute_usuario) == 1:
+        if chute_usuario in armazena_forca:
+            letra_existe(chute_usuario, texto)
+
+        elif chute_usuario in verifica:
+            chute_repetido(chute_usuario, texto)
+
+        elif chute_usuario in chutes_errados:
+            chute_errado_repetido(chute_usuario, texto)
+
+        else:
+            letra_nao_existe(chute_usuario, texto)
+
+                    
+    elif len(chute_usuario) < 1:
+        limpa_terminal()
+        print('INFORME UMA LETRA!')
+        return verifica_chute(palavra_forca, texto)
+                
+    else:
+        limpa_terminal()
+        print('DIGITE AO MENOS UMA LETRA POR VEZ!')
+        return verifica_chute(palavra_forca, texto)
+    
+    return chute_usuario
+
     
 
 def jogo():
