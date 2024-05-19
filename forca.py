@@ -49,7 +49,6 @@ def jogo():
     verifica_tentivas(tentativas)
     
 
-
 def introducao():
     '''MENSAGEM DE INTRODUÇÃO PARA INICIALIZAR O JOGO'''
     input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
