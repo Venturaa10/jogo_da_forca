@@ -48,14 +48,6 @@ def introducao():
     input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
 
 
- 
-def armazena_tentativa():
-    global chances
-    global limite
-    chances = 0
-    limite = int(input('Número de Tentativas: '))
-    return chances, limite
-
 def letra_existe(chute_usuario):
     while chute_usuario in armazena_forca:
         for indice ,letra in enumerate(armazena_forca):
@@ -71,15 +63,22 @@ def letra_existe(chute_usuario):
         return verifica_chute(forca)
         
 def letra_nao_existe():
-        
-        limpa_terminal()
-        limite - 1
+    
+    limpa_terminal()
+    if errou > 0:
         print('ERROU!')
-        print(f'RESTAM {limite} TENTATIVAS!')
+        print(f'RESTAM {errou} de {limite} TENTATIVAS!')
         return verifica_chute(forca)
+
+    else:
+        limpa_terminal()
+        print(f'LIMITE DE {limite} TENTATIVAS ATINGIDA!')
+        print(f'VOCÊ PERDEU, A PALAVRA ERA {forca}!')
 
 
 def verifica_chute(forca):
+    global errou
+
     for l in forca:
         ver.append(l)
 
@@ -88,40 +87,48 @@ def verifica_chute(forca):
     print(armazena_forca)
     print(forca)
 
-    while verifica != ver:
-        ver.clear()
-        chute_usuario = input('Digite uma letra: ').capitalize()
-    
-        if len(chute_usuario) == 1:
-            if chute_usuario in armazena_forca:
-                letra_existe(chute_usuario)
-
-            else:
-                letra_nao_existe()
-
-        elif len(chute_usuario) < 1:
-            limpa_terminal()
-            print('INFORME UMA LETRA!')
-            return verifica_chute(forca)
+    for t in range(0, limite):
+        while verifica != ver:
+            ver.clear()
+            chute_usuario = input('Digite uma letra: ').capitalize().strip()
         
-        elif len(chute_usuario) > 1:
-            limpa_terminal()
-            print('DIGITE AO MENOS UMA LETRA POR VEZ!')
-            return verifica_chute(forca)
+            if len(chute_usuario) == 1:
+                if chute_usuario in armazena_forca:
+                    letra_existe(chute_usuario)
 
-        # print(f'PARABÉNS,VOCÊ ACERTOU A FORCA "{forca}"')
+                else:
+                    errou = limite - 1
+                    letra_nao_existe()
+
+            elif len(chute_usuario) < 1:
+                limpa_terminal()
+                print('INFORME UMA LETRA!')
+                return verifica_chute(forca)
+            
+            else:
+                limpa_terminal()
+                print('DIGITE AO MENOS UMA LETRA POR VEZ!')
+                return verifica_chute(forca)
+    
+        limpa_terminal()
+        print(f'PARABÉNS,VOCÊ ACERTOU A PALAVRA "{forca}"')
+    
+    return errou
+
 
 def verifica_tentivas():
+    global limite
     '''
     Verificar o número de tentativas e se o valor é valido, caso retorne True, o jogo se iniciara
     '''
     limpa_terminal()
-    print('INFORME UM NÚMERO DE 3 A 15!')
+    print('INFORME UM LIMITE DE TENTATIVAS ENTRE 3 E 15!')
 
     try:
-        armazena_tentativa()
+        limite = int(input('Número de Tentativas: '))
     except:
         return verifica_tentivas()
+
 
     if limite < 3 or limite > 15:
         return verifica_tentivas()
@@ -129,7 +136,7 @@ def verifica_tentivas():
     else:
         verifica_chute(forca)
 
-
+    return limite
     
 
 def jogo():
