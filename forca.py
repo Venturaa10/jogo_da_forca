@@ -5,12 +5,12 @@ import random
 
 # O programa deve seguir as seguintes diretrizes:
 
-# Escolher aleatoriamente uma palavra de uma lista predefinida de palavras.
-# Mostrar ao jogador a quantidade de letras na palavra escolhida, substituindo as letras por traços (-).
-# Permitir que o jogador insira uma letra por vez.
-# Verificar se a letra inserida está presente na palavra. Se estiver, substituir o traço correspondente pela letra.
-# Se a letra não estiver presente na palavra, contar como um erro.
-# Mostrar ao jogador a palavra parcialmente preenchida, as letras já tentadas e o número de erros.
+# Escolher aleatoriamente uma palavra de uma lista predefinida de palavras. (FEITO)
+# Mostrar ao jogador a quantidade de letras na palavra escolhida, substituindo as letras por traços (-). (FEITO)
+# Permitir que o jogador insira uma letra por vez. (FEITO)
+# Verificar se a letra inserida está presente na palavra. Se estiver, substituir o traço correspondente pela letra. (FEITO)
+# Se a letra não estiver presente na palavra, contar como um erro. ()
+# Mostrar ao jogador a palavra parcialmente preenchida, as letras já tentadas e o número de erros. (FEITO)
 # Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa).
 # Dar ao jogador a opção de jogar novamente após o término do jogo.
 
@@ -21,6 +21,7 @@ armazena_forca = []
 verifica = []
 ver = []
 chutes_errados = []
+tentativas = 0
 
 def limpa_terminal():
     os.system('cls')
@@ -47,7 +48,10 @@ def introducao():
     '''MENSAGEM DE INTRODUÇÃO PARA INICIALIZAR O JOGO'''
     input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
 
-
+def dificuldade_escolhida(texto):
+        limpa_terminal()
+        print(f'DIFICULDADE: {texto}\n')
+        
 def letra_existe(chute_usuario):
     '''FUNÇÃO RESPONSAVEL POR:
     - INFORMAR QUE O CHUTE É CORRETO
@@ -105,6 +109,7 @@ def verifica_chute(palavra_forca):
     - A LISTA ver É APENAS PARA ARMAZENAR TODAS AS LETRAS DA palavra_forca, CASO A LISTA verifica SEJA IGUAL A LISTA ver SIGNIFICA QUE O USUARIO ACERTOU A PALAVRA, SE NÃO O PROGRAMA CONTINUARA SENDO EXECUTADO, TODA VEZ QUE A FUNÇÃO FOR EXECUTADA A LISTA ver SERÁ LIMPA COM O METODO .clear PARA EVITAR QUE O OCORRA UM ACUMULO DE LETRAS DA palavra_forca
     - A LISTA ver SERVE APENAS PARA FAZER ESSA VALIDAÇÃO, POIS NELA FICA ARMAZENADO AS LETRAS SEM QUE OCORRA ALTERAÇÃO NA LISTA, ENTÃO QUANDO ESSA LISTA E A verifica FOREM IGUAIS, SIGNIFICA QUE O USUARIO ACERTOU
     '''
+    dificuldade_escolhida(texto=nivel)
 
     for l in palavra_forca:
         ver.append(l)
@@ -148,35 +153,57 @@ def verifica_chute(palavra_forca):
 
     
 
-def verifica_tentivas():
+def verifica_tentivas(tentativas):
     '''FUNÇÃO RESPONSAVEL POR:
     - RECEBER E VALIDAR O NÚMERO DE TENTATIVAS QUE O USUARIO FORNECEU, OCORRERA UM TRATAMENTO DE ERRO CASO O VALOR NÃO SEJA UM NÚMERO
     '''
-    global limite
-    
-    limpa_terminal()
-    print('INFORME UM LIMITE DE TENTATIVAS ENTRE 3 E 15!')
+    global nivel
+
+    print('''
+          DIFICULDADES
+        1 - FÁCIL
+        2 - INTERMEDIARIO
+        3 - DIFÍCIL
+        ''')
 
     try:
-        limite = int(input('Número de Tentativas: '))
+        nivel = int(input('INFORME A DIFICULDADE: '))
     except:
-        return verifica_tentivas()
+        limpa_terminal()
+        print('INFORME UMA OPÇÃO!')
+        return verifica_tentivas(tentativas)
 
-
-    if limite < 3 or limite > 15:
-        return verifica_tentivas()
-    
-    else:
+    if nivel == 1:
+        tentativas = 15
+        dificuldade_escolhida('FÁCIL')
+        verifica_chute(palavra_forca)
+        
+    elif nivel == 2:
+        tentativas = 10
+        dificuldade_escolhida('INTERMEDIARIO')
         verifica_chute(palavra_forca)
 
-    return limite
+    elif nivel == 3:
+        tentativas = 5
+        dificuldade_escolhida('DIFÍCIL')
+        verifica_chute(palavra_forca)
+
+    else:
+        limpa_terminal()
+        print('ESSA OPÇÃO NÃO EXISTE!\n')
+        verifica_tentivas(tentativas)
+
+
+    # verifica_chute(palavra_forca)
+
+    return nivel
     
 
 def jogo():
     limpa_terminal()
     gera_forca()
     introducao()
-    verifica_tentivas()
+    verifica_tentivas(tentativas)
     
 
 if __name__ in '__main__':
