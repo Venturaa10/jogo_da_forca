@@ -14,13 +14,12 @@ import random
 # Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa).
 # Dar ao jogador a opção de jogar novamente após o término do jogo.
 
-palavras_forca = ['Flamengo', 'Vasco', 'Gremio','Palmeiras', 'Botafogo', 'Fluminense']
+lista_palavras = ['Flamengo', 'Vasco', 'Gremio','Palmeiras', 'Botafogo', 'Fluminense']
 
-# palavras_forca = ['Botafogo','Bragantino','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
+# lista_palavras = ['Botafogo','Bragantino','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
 armazena_forca = []
 verifica = []
 ver = []
-tentativas = 0
 
 
 def limpa_terminal():
@@ -32,16 +31,16 @@ def gera_forca():
     Seleciona a palavra da forca
     Cria uma copia da palavra com "_" representando a quantidade de letras da palavra
      '''
-    global forca
-    forca = random.choice(palavras_forca).upper()
+    global palavra_forca
+    palavra_forca = random.choice(lista_palavras).upper()
     
-    for letra in forca:
+    for letra in palavra_forca:
         armazena_forca.append(letra)
 
     for i in armazena_forca:
         verifica.append('_')     
 
-    return forca
+    return palavra_forca
 
 
 def introducao():
@@ -61,61 +60,64 @@ def letra_existe(chute_usuario):
                 verifica[indice] = letra
 
     else:
-        return verifica_chute(forca)
+        return verifica_chute(palavra_forca)
         
-def letra_nao_existe():
+def letra_nao_existe(chute_usuario):
     
     limpa_terminal()
-    input('ERROU!')
-    return verifica_chute(forca)
+    print('ERROU!')
+    print(f'A LETRA {chute_usuario} NÃO EXISTE NA PALAVRA!\n')
+    return verifica_chute(palavra_forca)
 
 def mensagem_ganhou():
     limpa_terminal()
-    print(f'PARABÉNS,VOCÊ ACERTOU A PALAVRA "{forca}"')
+    print(f'PARABÉNS,VOCÊ ACERTOU A PALAVRA "{palavra_forca}"')
 
 
-def verifica_chute(forca):
+def verifica_chute(palavra_forca):
 
-    for l in forca:
+    for l in palavra_forca:
         ver.append(l)
 
     print(ver)
     print(verifica)
     print(armazena_forca)
-    print(forca)
-
+    print(palavra_forca)
 
     if verifica == ver:
         return mensagem_ganhou()
         
-    else:
-        pass
-
-
     ver.clear()
     chute_usuario = input('Digite uma letra: ').capitalize().strip()
         
     if len(chute_usuario) == 1:
         if chute_usuario in armazena_forca:
             letra_existe(chute_usuario)
-
+        elif chute_usuario in verifica:
+            limpa_terminal()
+            print(f'A LETRA {chute_usuario} JÁ FOI INSERIDA!')
+            return verifica_chute(palavra_forca)
+        
         else:
-            letra_nao_existe()
+            letra_nao_existe(chute_usuario)
 
+                    
     elif len(chute_usuario) < 1:
         limpa_terminal()
         print('INFORME UMA LETRA!')
-        return verifica_chute(forca)
-            
+        return verifica_chute(palavra_forca)
+                
     else:
         limpa_terminal()
         print('DIGITE AO MENOS UMA LETRA POR VEZ!')
-        return verifica_chute(forca)
+        return verifica_chute(palavra_forca)
     
+    return chute_usuario
 
     
 
 def verifica_tentivas():
+    global limite
     '''
     Verifica o número de tentativas e se o valor é valido, caso retorne True, o jogo se iniciara
     '''
@@ -132,7 +134,7 @@ def verifica_tentivas():
         return verifica_tentivas()
     
     else:
-        verifica_chute(forca)
+        verifica_chute(palavra_forca)
 
     return limite
     
@@ -143,7 +145,7 @@ def jogo():
     introducao()
     verifica_tentivas()
     
-print(armazena_forca)
+
 if __name__ in '__main__':
     jogo()
     
