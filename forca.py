@@ -12,7 +12,7 @@ import random
 # Se a letra não estiver presente na palavra, contar como um erro. (FEITO)
 # Mostrar ao jogador a palavra parcialmente preenchida, as letras já tentadas e o número de erros. (FEITO)
 # Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa). (FEITO)
-# Dar ao jogador a opção de jogar novamente após o término do jogo.
+# Dar ao jogador a opção de jogar novamente após o término do jogo. (FALTA IMPLEMENTAR)
 
 lista_palavras = ['Botafogo','Bragantino','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
 armazena_forca = []
@@ -40,6 +40,14 @@ def gera_forca():
         verifica.append('_')     
 
     return palavra_forca
+
+
+def jogo():
+    limpa_terminal()
+    gera_forca()
+    introducao()
+    verifica_tentivas(tentativas)
+    
 
 
 def introducao():
@@ -174,13 +182,13 @@ def chute_repetido(chute_usuario, texto, tentativas, total_tentativas):
 
 
 def chute_errado_repetido(chute_usuario, texto, tentativas, total_tentativas):
-        '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES ERRADOS REPETIDOS'''
-        limpa_terminal()
-        tentativas -= 1
-        print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA E JÁ FOI INFORMADA ANTERIORMENTE!')
-        print('INFORME UMA LETRA DIFERENTE!\n')
+    '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES ERRADOS REPETIDOS'''
+    limpa_terminal()
+    tentativas -= 1
+    print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA E JÁ FOI INFORMADA ANTERIORMENTE!')
+    print('INFORME UMA LETRA DIFERENTE!\n')
         
-        return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+    return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
 
 
 def letra_nao_existe(chute_usuario, texto, tentativas, total_tentativas):
@@ -222,13 +230,6 @@ def mensagem_perdeu(total_tentativas, palavra_forca):
     print(f'VOCÊ USOU TODAS AS SUAS {total_tentativas} TENTATIVAS ANTES DE DESCOBRIR A PALAVRA FORCA!')
     print(f'A PALAVRA FORCA ERA "{palavra_forca}"')
 
-
-def jogo():
-    limpa_terminal()
-    gera_forca()
-    introducao()
-    verifica_tentivas(tentativas)
-    
 
 if __name__ in '__main__':
     jogo()
