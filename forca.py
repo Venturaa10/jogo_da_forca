@@ -54,15 +54,10 @@ def introducao():
     input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
 
 
-def dificuldade_escolhida(texto):
-    print(f'DIFICULDADE: {texto}\n')
-        
-
 def verifica_tentivas(tentativas):
     '''FUNÇÃO RESPONSAVEL POR:
     - RECEBER E VALIDAR O NÚMERO DE TENTATIVAS QUE O USUARIO FORNECEU, OCORRERA UM TRATAMENTO DE ERRO CASO O VALOR NÃO SEJA UM NÚMERO
     '''
-    global nivel
     exibe_niveis()
 
     try:
@@ -216,6 +211,10 @@ def exibe_niveis():
             3 - DIFÍCIL --> 5 Chances
             """)
 
+
+def dificuldade_escolhida(texto):
+    print(f'DIFICULDADE: {texto}\n')
+        
 
 def mensagem_ganhou():
     '''FUNÇÃO RESPONSAVEL POR EXIBIR UMA MENSAGEM POSITIVA CASO O USUARIO ACERTE A PALAVRA'''
