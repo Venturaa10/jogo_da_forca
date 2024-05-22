@@ -72,21 +72,21 @@ def verifica_tentivas(tentativas):
         total_tentativas = 15
         texto = 'FÁCIL'
         limpa_terminal()
-        verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+        recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
         
     elif nivel == 2:
         tentativas = 10
         total_tentativas = 10
         texto = 'INTERMEDIARIO'
         limpa_terminal()
-        verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+        recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
     elif nivel == 3:
         tentativas = 5
         total_tentativas = 5
         texto = 'DIFÍCIL'
         limpa_terminal()
-        verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+        recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
     else:
         limpa_terminal()
@@ -97,7 +97,7 @@ def verifica_tentivas(tentativas):
     return nivel, tentativas, total_tentativas
     
 
-def verifica_chute(palavra_forca, texto, tentativas, total_tentativas):
+def recebe_chute(palavra_forca, texto, tentativas, total_tentativas):
     '''FUNÇÃO RESPONSAVEL POR:
     - VALIDAR O CHUTE DO USUARIO
     - EXECUTAR DETERMINADA FUNÇÃO DE ACORDO COM O CHUTE DO USUARIO
@@ -121,34 +121,44 @@ def verifica_chute(palavra_forca, texto, tentativas, total_tentativas):
     
     for chute in range(0, tentativas):
         ver.clear()
-        chute_usuario = input('Digite uma letra: ').capitalize().strip()
         
+        try:
+            chute_usuario = input('Digite uma letra: ').capitalize().strip()
+        except:
+            limpa_terminal()
+            print('Essa informação não é valida\n')
+            return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
+
         if len(chute_usuario) == 1:
-            if chute_usuario in armazena_forca:
-                letra_existe(chute_usuario, texto, tentativas, total_tentativas)
-
-            elif chute_usuario in verifica:
-                chute_repetido(chute_usuario, texto, tentativas, total_tentativas)
-
-            elif chute_usuario in chutes_errados:
-                chute_errado_repetido(chute_usuario, texto, tentativas, total_tentativas)
-
-            else:
-                letra_nao_existe(chute_usuario, texto, tentativas, total_tentativas)
-
+            verifica_letra_chute(chute_usuario,texto,tentativas,total_tentativas)
                             
         elif len(chute_usuario) < 1:
             limpa_terminal()
             print('INFORME UMA LETRA!')
-            return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+            return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
                         
         else:
             limpa_terminal()
             print('DIGITE AO MENOS UMA LETRA POR VEZ!')
-            return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+            return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
         
         return chute_usuario
         
+
+def verifica_letra_chute(chute_usuario,texto,tentativas,total_tentativas):            
+    if chute_usuario in armazena_forca:
+        letra_existe(chute_usuario, texto, tentativas, total_tentativas)
+    
+    elif chute_usuario in verifica:
+        chute_repetido(chute_usuario, texto, tentativas, total_tentativas)
+
+    elif chute_usuario in chutes_errados:
+        chute_errado_repetido(chute_usuario, texto, tentativas, total_tentativas)
+
+    else:
+        letra_nao_existe(chute_usuario, texto, tentativas, total_tentativas)
+
+
 
 def letra_existe(chute_usuario, texto, tentativas, total_tentativas):
     '''FUNÇÃO RESPONSAVEL POR:
@@ -165,14 +175,14 @@ def letra_existe(chute_usuario, texto, tentativas, total_tentativas):
                 verifica[indice] = letra
 
     else:
-        return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+        return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
 
 def chute_repetido(chute_usuario, texto, tentativas, total_tentativas):
     '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES CERTOS REPETIDOS'''
     limpa_terminal()
     print(f'A LETRA "{chute_usuario}" JÁ FOI INSERIDA!\n')
-    return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+    return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
 
 def chute_errado_repetido(chute_usuario, texto, tentativas, total_tentativas):
@@ -182,7 +192,7 @@ def chute_errado_repetido(chute_usuario, texto, tentativas, total_tentativas):
     print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA E JÁ FOI INFORMADA ANTERIORMENTE!')
     print('INFORME UMA LETRA DIFERENTE!\n')
         
-    return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+    return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
 
 def letra_nao_existe(chute_usuario, texto, tentativas, total_tentativas):
@@ -195,7 +205,7 @@ def letra_nao_existe(chute_usuario, texto, tentativas, total_tentativas):
     chutes_errados.append(chute_usuario)
     print('ERROU!')
     print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA!\n')
-    return verifica_chute(palavra_forca, texto, tentativas, total_tentativas)
+    return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
 
 def exibe_tentativas(tentativas, total_tentativas):
