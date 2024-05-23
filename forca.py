@@ -45,21 +45,26 @@ def gera_forca():
 def jogo():
     limpa_terminal()
     gera_forca()
-    introducao()
+    titulo_introducao()
     verifica_tentivas()
     
 
-def introducao():
+def titulo_introducao():
     '''MENSAGEM DE INTRODUÇÃO PARA INICIALIZAR O JOGO'''
-    input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
+    input('𝚂𝚎𝚓𝚊 𝙱𝚎𝚖 𝚅𝚒𝚗𝚍𝚘 𝚊 𝚘 𝙹𝚘𝚐𝚘 𝚍𝚊 𝙵𝚘𝚛𝚌𝚊 𝚍𝚘𝚜 𝚝𝚒𝚖𝚎𝚜 𝙱𝚛𝚊𝚜𝚒𝚕𝚎𝚒𝚛𝚘𝚜!\n "ENTER" para Iniciar... ')
 
+def titulo_jogo():
+    '''TENHO QUE IMPLEMENTAR ESSE TITULO DA MANEIRA CORRETA!
+    REFATORAR CÓDIGO!
+    '''
+    print('𝑱𝑶𝑮𝑶 𝑫𝑨 𝑭𝑶𝑹𝑪𝑨 𝑫𝑶𝑺 𝑻𝑰𝑴𝑬𝑺 𝑩𝑹𝑨𝑺𝑰𝑳𝑬𝑰𝑹𝑶𝑺!')
 
 def verifica_tentivas():
     '''FUNÇÃO RESPONSAVEL POR:
     - RECEBER E VALIDAR O NÚMERO DE TENTATIVAS QUE O USUARIO FORNECEU, OCORRERA UM TRATAMENTO DE ERRO CASO O VALOR NÃO SEJA UM NÚMERO
     '''
     exibe_niveis()
-
+    
     try:
         nivel = int(input('INFORME A DIFICULDADE: '))
     except:
