@@ -115,7 +115,7 @@ def recebe_chute(palavra_forca, texto, tentativas, total_tentativas):
     if verifica == ver:
         return mensagem_ganhou()
     elif tentativas == 0:
-        mensagem_perdeu(total_tentativas, palavra_forca)
+        return mensagem_perdeu(total_tentativas, palavra_forca)
     else:
         pass
     
