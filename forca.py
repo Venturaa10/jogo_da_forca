@@ -19,7 +19,7 @@ armazena_forca = []
 verifica = []
 ver = []
 chutes_errados = []
-tentativas = 0
+TENTATIVAS = 0
 
 def limpa_terminal():
     os.system('cls')
@@ -46,7 +46,7 @@ def jogo():
     limpa_terminal()
     gera_forca()
     introducao()
-    verifica_tentivas(tentativas)
+    verifica_tentivas()
     
 
 def introducao():
@@ -54,7 +54,7 @@ def introducao():
     input('Seja Bem Vindo a o Jogo da Forca dos times Brasileiros!\nIniciar... ')
 
 
-def verifica_tentivas(tentativas):
+def verifica_tentivas():
     '''FUNÇÃO RESPONSAVEL POR:
     - RECEBER E VALIDAR O NÚMERO DE TENTATIVAS QUE O USUARIO FORNECEU, OCORRERA UM TRATAMENTO DE ERRO CASO O VALOR NÃO SEJA UM NÚMERO
     '''
@@ -65,7 +65,7 @@ def verifica_tentivas(tentativas):
     except:
         limpa_terminal()
         print('INFORME UMA OPÇÃO!')
-        return verifica_tentivas(tentativas)
+        return verifica_tentivas()
 
     if nivel == 1:
         tentativas = 15
@@ -91,7 +91,7 @@ def verifica_tentivas(tentativas):
     else:
         limpa_terminal()
         print('ESSA OPÇÃO NÃO EXISTE!\n')
-        verifica_tentivas(tentativas)
+        verifica_tentivas()
 
 
     return nivel, tentativas, total_tentativas
