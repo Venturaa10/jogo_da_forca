@@ -51,18 +51,19 @@ def jogo():
 
 def titulo_introducao():
     '''MENSAGEM DE INTRODUÇÃO PARA INICIALIZAR O JOGO'''
-    input('𝚂𝚎𝚓𝚊 𝙱𝚎𝚖 𝚅𝚒𝚗𝚍𝚘 𝚊 𝚘 𝙹𝚘𝚐𝚘 𝚍𝚊 𝙵𝚘𝚛𝚌𝚊 𝚍𝚘𝚜 𝚝𝚒𝚖𝚎𝚜 𝙱𝚛𝚊𝚜𝚒𝚕𝚎𝚒𝚛𝚘𝚜!\n "ENTER" para Iniciar... ')
+    input('⚽⚽⚽  𝚂𝚎𝚓𝚊 𝙱𝚎𝚖 𝚅𝚒𝚗𝚍𝚘 𝚊 𝚘 𝙹𝚘𝚐𝚘 𝚍𝚊 𝙵𝚘𝚛𝚌𝚊 𝚍𝚘𝚜 𝚝𝚒𝚖𝚎𝚜 𝙱𝚛𝚊𝚜𝚒𝚕𝚎𝚒𝚛𝚘𝚜!  ⚽⚽⚽\n "ENTER" para Iniciar... ')
 
 def titulo_jogo():
-    '''TENHO QUE IMPLEMENTAR ESSE TITULO DA MANEIRA CORRETA!
-    REFATORAR CÓDIGO!
+    '''EXIBE TITULO PERSONALIZADO
     '''
-    print('𝑱𝑶𝑮𝑶 𝑫𝑨 𝑭𝑶𝑹𝑪𝑨 𝑫𝑶𝑺 𝑻𝑰𝑴𝑬𝑺 𝑩𝑹𝑨𝑺𝑰𝑳𝑬𝑰𝑹𝑶𝑺!')
+    limpa_terminal()
+    print('⚽⚽⚽  𝕁𝕆𝔾𝕆 𝔻𝔸 𝔽𝕆ℝℂ𝔸 𝔻𝕆𝕊 𝕋𝕀𝕄𝔼𝕊 𝔹ℝ𝔸𝕊𝕀𝕃𝔼𝕀ℝ𝕆𝕊  ⚽⚽⚽!\n')
 
 def verifica_tentivas():
     '''FUNÇÃO RESPONSAVEL POR:
     - RECEBER E VALIDAR O NÚMERO DE TENTATIVAS QUE O USUARIO FORNECEU, OCORRERA UM TRATAMENTO DE ERRO CASO O VALOR NÃO SEJA UM NÚMERO
     '''
+    titulo_jogo()
     exibe_niveis()
     
     try:
@@ -77,6 +78,7 @@ def verifica_tentivas():
         total_tentativas = 15
         texto = 'FÁCIL'
         limpa_terminal()
+        titulo_jogo()
         recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
         
     elif nivel == 2:
@@ -84,6 +86,7 @@ def verifica_tentivas():
         total_tentativas = 10
         texto = 'INTERMEDIARIO'
         limpa_terminal()
+        titulo_jogo()
         recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
     elif nivel == 3:
@@ -91,6 +94,7 @@ def verifica_tentivas():
         total_tentativas = 5
         texto = 'DIFÍCIL'
         limpa_terminal()
+        titulo_jogo()
         recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
     else:
@@ -131,6 +135,7 @@ def recebe_chute(palavra_forca, texto, tentativas, total_tentativas):
             chute_usuario = input('Digite uma letra: ').capitalize().strip()
         except:
             limpa_terminal()
+            titulo_jogo()
             print('Essa informação não é valida\n')
             return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
@@ -139,12 +144,14 @@ def recebe_chute(palavra_forca, texto, tentativas, total_tentativas):
                             
         elif len(chute_usuario) < 1:
             limpa_terminal()
-            print('INFORME UMA LETRA!')
+            titulo_jogo()
+            print('✍  INFORME UMA LETRA!✍')
             return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
                         
         else:
             limpa_terminal()
-            print('DIGITE AO MENOS UMA LETRA POR VEZ!')
+            titulo_jogo()
+            print('✍  DIGITE AO MENOS UMA LETRA POR VEZ!✍')
             return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
         
         return chute_usuario
@@ -174,8 +181,8 @@ def letra_existe(chute_usuario, texto, tentativas, total_tentativas):
     while chute_usuario in armazena_forca:
         for indice ,letra in enumerate(armazena_forca):
             if letra.capitalize() == chute_usuario.capitalize():
-                limpa_terminal()
-                print('ACERTOU!\n')
+                titulo_jogo()
+                print('ACERTOU!👍\n')
                 armazena_forca[indice] = '!'
                 verifica[indice] = letra
 
@@ -185,16 +192,16 @@ def letra_existe(chute_usuario, texto, tentativas, total_tentativas):
 
 def chute_repetido(chute_usuario, texto, tentativas, total_tentativas):
     '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES CERTOS REPETIDOS'''
-    limpa_terminal()
-    print(f'A LETRA "{chute_usuario}" JÁ FOI INSERIDA!\n')
+    titulo_jogo()
+    print(f'A LETRA "{chute_usuario}" JÁ FOI INSERIDA!👎\n')
     return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
 
 def chute_errado_repetido(chute_usuario, texto, tentativas, total_tentativas):
     '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES ERRADOS REPETIDOS'''
-    limpa_terminal()
+    titulo_jogo()
     tentativas -= 1
-    print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA E JÁ FOI INFORMADA ANTERIORMENTE!')
+    print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA E JÁ FOI INFORMADA ANTERIORMENTE!👎')
     print('INFORME UMA LETRA DIFERENTE!\n')
         
     return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
@@ -205,10 +212,10 @@ def letra_nao_existe(chute_usuario, texto, tentativas, total_tentativas):
     - SUBTRAIR A TENTATIVA DO USUARIO
     - INFORMA QUE O CHUTE ESTÁ INCORRETO
     '''
-    limpa_terminal()
+    titulo_jogo()
     tentativas -= 1
     chutes_errados.append(chute_usuario)
-    print('ERROU!')
+    print('ERROU!👎')
     print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA!\n')
     return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
@@ -219,8 +226,7 @@ def exibe_tentativas(tentativas, total_tentativas):
 
 def exibe_niveis():
     '''FUNÇÃO RESPONSAVEL APENAS POR EXIBIR OS NIVIES DE DIFICULDADES'''
-    print("""
-            DIFICULDADES
+    print("""            DIFICULDADES
             1 - FÁCIL --> 15 Chances
             2 - INTERMEDIARIO --> 10 Chances
             3 - DIFÍCIL --> 5 Chances
@@ -234,12 +240,12 @@ def dificuldade_escolhida(texto):
 def mensagem_ganhou():
     '''FUNÇÃO RESPONSAVEL POR EXIBIR UMA MENSAGEM POSITIVA CASO O USUARIO ACERTE A PALAVRA'''
     limpa_terminal()
-    print(f'PARABÉNS,VOCÊ ACERTOU A PALAVRA "{palavra_forca}"')
+    print(f'👏👏👏  PARABÉNS,VOCÊ ACERTOU A PALAVRA "{palavra_forca}"  👏👏👏')
 
 
 def mensagem_perdeu(total_tentativas, palavra_forca):
     limpa_terminal()
-    print('FIM DE JOGO, VOCÊ PERDEU :( ')
+    print('⍨⍨⍨   FIM DE JOGO, VOCÊ PERDEU   ⍨⍨⍨\n')
     print(f'VOCÊ USOU TODAS AS SUAS {total_tentativas} TENTATIVAS ANTES DE DESCOBRIR A PALAVRA FORCA!')
     print(f'A PALAVRA FORCA ERA "{palavra_forca}"')
 
