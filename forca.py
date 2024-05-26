@@ -14,7 +14,7 @@ import random
 # Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa). (FEITO)
 # Dar ao jogador a opção de jogar novamente após o término do jogo. (FALTA IMPLEMENTAR)
 
-lista_palavras = ['Botafogo','Bragantino','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional']
+lista_palavras = ['Avai','Bahia','Botafogo','Bragantino','Cuiaba','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional', 'Juventude', 'Goias', 'Paysandu', 'Ituano']
 armazena_forca = []
 verifica = []
 ver = []
@@ -170,7 +170,6 @@ def verifica_letra_chute(chute_usuario,texto,tentativas,total_tentativas):
 
     else:
         letra_nao_existe(chute_usuario, texto, tentativas, total_tentativas)
-
 
 
 def letra_existe(chute_usuario, texto, tentativas, total_tentativas):
