@@ -3,18 +3,7 @@ import random
 
 # Desafio: Jogo da Forca
 
-# O programa deve seguir as seguintes diretrizes:
-
-# Escolher aleatoriamente uma palavra de uma lista predefinida de palavras. (FEITO)
-# Mostrar ao jogador a quantidade de letras na palavra escolhida, substituindo as letras por traços (-). (FEITO)
-# Permitir que o jogador insira uma letra por vez. (FEITO)
-# Verificar se a letra inserida está presente na palavra. Se estiver, substituir o traço correspondente pela letra. (FEITO)
-# Se a letra não estiver presente na palavra, contar como um erro. (FEITO)
-# Mostrar ao jogador a palavra parcialmente preenchida, as letras já tentadas e o número de erros. (FEITO)
-# Permitir que o jogador continue tentando até adivinhar a palavra ou exceder um número máximo de erros (por exemplo, 6 erros para desenhar a forca completa). (FEITO)
-# Dar ao jogador a opção de jogar novamente após o término do jogo. (FALTA IMPLEMENTAR)
-
-lista_palavras = ['Avai','Bahia','Botafogo','Bragantino','Cuiaba','Fortaleza','Flamengo', 'Corinthians', 'Palmeiras', 'Vasco','Fluminense', 'Gremio', 'Cruzeiro', 'Santos', 'Internacional', 'Juventude', 'Goias', 'Paysandu', 'Ituano']
+lista_palavras = ['America', 'Atletico', 'Avai', 'Bahia', 'Brusque', 'Botafogo','Bragantino', 'Ceara', 'Chapecoense', 'Confianca', 'Corinthians', 'Coritiba', 'Criciuma', 'Cruzeiro', 'CSA', 'CRB', 'Figueirense', 'Flamengo', 'Fluminense', 'Fortaleza', 'Goias', 'Gremio', 'Guarani', 'Internacional', 'Ituano', 'Joinville', 'Juventude', 'Londrina', 'Mirassol','Nautico', 'Oeste', 'Operario', 'Palmeiras', 'Parana', 'Paysandu', 'Ponte', 'Remo', 'Sampaio', 'Santa', 'Santos', 'Sergipe', 'Tombense', 'Vasco', 'Vitoria', 'Ypiranga']
 armazena_forca = []
 verifica = []
 ver = []
@@ -123,8 +112,10 @@ def recebe_chute(palavra_forca, texto, tentativas, total_tentativas):
         ver.append(l)
 
     if verifica == ver:
-        return mensagem_ganhou()
+        limpa_terminal()
+        return mensagem_ganhou(palavra_forca)
     elif tentativas == 0:
+        limpa_terminal()
         return mensagem_perdeu(total_tentativas, palavra_forca)
     else:
         pass
@@ -237,18 +228,40 @@ def dificuldade_escolhida(texto):
     print(f'DIFICULDADE: {texto}\n')
         
 
-def mensagem_ganhou():
+def mensagem_ganhou(palavra_forca):
     '''FUNÇÃO RESPONSAVEL POR EXIBIR UMA MENSAGEM POSITIVA CASO O USUARIO ACERTE A PALAVRA'''
-    limpa_terminal()
     print(f'👏👏👏  PARABÉNS,VOCÊ ACERTOU A PALAVRA "{palavra_forca}"  👏👏👏')
+    return jogar_novamente(lambda: mensagem_ganhou(palavra_forca))
 
 
 def mensagem_perdeu(total_tentativas, palavra_forca):
-    limpa_terminal()
     print('⍨⍨⍨   FIM DE JOGO, VOCÊ PERDEU   ⍨⍨⍨\n')
     print(f'VOCÊ USOU TODAS AS SUAS {total_tentativas} TENTATIVAS ANTES DE DESCOBRIR A PALAVRA FORCA!')
     print(f'A PALAVRA FORCA ERA "{palavra_forca}"')
+    return jogar_novamente(lambda: mensagem_perdeu(total_tentativas, palavra_forca))
 
+
+def jogar_novamente(func):
+    print()
+    rejogar = input('Jogar novamente,"Sim" para rejogar ou "Nao" para sair.\n? ').capitalize().strip()
+
+    if rejogar == 'Sim' or rejogar == 'S':
+        armazena_forca.clear()
+        verifica.clear()
+        ver.clear()
+        return jogo()
+    elif rejogar == 'Nao' or rejogar == 'N':
+        agradecimento()
+    else:
+        limpa_terminal()
+        print('OPÇÃO INVALIDA!\n')
+        return func()
+
+
+def agradecimento():
+    limpa_terminal()
+    print('OBRIGADO POR JOGAR! :)\nESPERO QUE TENHA SE DIVERTIDO!')
+    
 
 if __name__ in '__main__':
     jogo()
