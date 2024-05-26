@@ -1,4 +1,4 @@
 -> JOGO DA FORCA 
         
-- Jogo da forca com times brasileiros.
+- Jogo da forca com alguns times brasileiros.
 
