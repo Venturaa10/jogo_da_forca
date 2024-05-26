@@ -51,7 +51,9 @@ def jogo():
 
 def titulo_introducao():
     '''MENSAGEM DE INTRODUÇÃO PARA INICIALIZAR O JOGO'''
-    input('⚽⚽⚽  𝚂𝚎𝚓𝚊 𝙱𝚎𝚖 𝚅𝚒𝚗𝚍𝚘 𝚊 𝚘 𝙹𝚘𝚐𝚘 𝚍𝚊 𝙵𝚘𝚛𝚌𝚊 𝚍𝚘𝚜 𝚝𝚒𝚖𝚎𝚜 𝙱𝚛𝚊𝚜𝚒𝚕𝚎𝚒𝚛𝚘𝚜!  ⚽⚽⚽\n "ENTER" para Iniciar... ')
+    print('⚽⚽⚽  𝚂𝚎𝚓𝚊 𝙱𝚎𝚖 𝚅𝚒𝚗𝚍𝚘 𝚊 𝚘 𝙹𝚘𝚐𝚘 𝚍𝚊 𝙵𝚘𝚛𝚌𝚊 𝚍𝚘𝚜 𝚝𝚒𝚖𝚎𝚜 𝙱𝚛𝚊𝚜𝚒𝚕𝚎𝚒𝚛𝚘𝚜!  ⚽⚽⚽\n')
+    input('"ENTER" para Iniciar... ')
+    limpa_terminal()
 
 def titulo_jogo():
     '''EXIBE TITULO PERSONALIZADO
@@ -63,14 +65,13 @@ def verifica_tentivas():
     '''FUNÇÃO RESPONSAVEL POR:
     - RECEBER E VALIDAR O NÚMERO DE TENTATIVAS QUE O USUARIO FORNECEU, OCORRERA UM TRATAMENTO DE ERRO CASO O VALOR NÃO SEJA UM NÚMERO
     '''
-    titulo_jogo()
     exibe_niveis()
     
     try:
         nivel = int(input('INFORME A DIFICULDADE: '))
     except:
         limpa_terminal()
-        print('INFORME UMA OPÇÃO!')
+        print('INFORME UMA OPÇÃO!\n')
         return verifica_tentivas()
 
     if nivel == 1:
