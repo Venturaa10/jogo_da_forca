@@ -3,7 +3,7 @@ import random
 
 # Desafio: Jogo da Forca
 
-lista_palavras = ['America', 'Atletico', 'Avai', 'Bahia', 'Brusque', 'Botafogo','Bragantino', 'Ceara', 'Chapecoense', 'Confianca', 'Corinthians', 'Coritiba', 'Criciuma', 'Cruzeiro', 'CSA', 'CRB', 'Figueirense', 'Flamengo', 'Fluminense', 'Fortaleza', 'Goias', 'Gremio', 'Guarani', 'Internacional', 'Ituano', 'Joinville', 'Juventude', 'Londrina', 'Mirassol','Nautico', 'Oeste', 'Operario', 'Palmeiras', 'Parana', 'Paysandu', 'Ponte', 'Remo', 'Sampaio', 'Santa', 'Santos', 'Sergipe', 'Tombense', 'Vasco', 'Vitoria', 'Ypiranga']
+lista_palavras = ['ABC','America', 'Atletico', 'Avai', 'Bahia', 'Brusque', 'Botafogo', 'Bragantino', 'Ceara', 'Chapecoense', 'Confianca', 'Corinthians', 'Coritiba', 'Criciuma', 'Cruzeiro', 'CSA', 'CRB', 'Figueirense', 'Flamengo', 'Fluminense', 'Fortaleza', 'Ferroviario', 'Goias', 'Gremio', 'Guarani', 'Internacional', 'Ituano', 'Joinville', 'Juventude', 'Londrina', 'Mirassol','Nautico', 'Oeste', 'Operario', 'Palmeiras', 'Parana', 'Paysandu', 'Remo', 'Santos', 'Sergipe', 'Tombense', 'Vasco', 'Vitoria', 'Ypiranga']
 armazena_forca = []
 verifica = []
 ver = []
