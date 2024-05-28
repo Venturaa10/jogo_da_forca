@@ -15,9 +15,9 @@ def limpa_terminal():
 
 
 def gera_forca():
-    ''' FUNÇÃO RESPONSAVEL POR:
-    - ESCOLHER UMA DAS DENTRO DA LISTA lista_palavras PARA SER A PALAVRA SECRETA/FORCA
-    - CRIA UMA COPIA DA PALAVRA COM "_" REPRESENTANDO A QUANTIDADE DE LETRAS NA PALAVRA
+    ''' Função responsável por:
+    - Escolher uma das palavras dentro da lista lista_palavras para ser a palavra secreta/forca.
+    - Criar uma cópia da palavra com "_" representando a quantidade de letras na palavra.
     '''
     global palavra_forca
     palavra_forca = random.choice(lista_palavras).upper()
@@ -39,20 +39,20 @@ def jogo():
     
 
 def titulo_introducao():
-    '''MENSAGEM DE INTRODUÇÃO PARA INICIALIZAR O JOGO'''
+    '''Mensagem de introdução para inicializar o jogo.'''
     print('⚽⚽⚽  𝚂𝚎𝚓𝚊 𝙱𝚎𝚖 𝚅𝚒𝚗𝚍𝚘 𝚊 𝚘 𝙹𝚘𝚐𝚘 𝚍𝚊 𝙵𝚘𝚛𝚌𝚊 𝚍𝚘𝚜 𝚝𝚒𝚖𝚎𝚜 𝙱𝚛𝚊𝚜𝚒𝚕𝚎𝚒𝚛𝚘𝚜!  ⚽⚽⚽\n')
     input('"ENTER" para Iniciar... ')
     limpa_terminal()
 
 def titulo_jogo():
-    '''EXIBE TITULO PERSONALIZADO
+    '''Exibi titulo personalizado
     '''
     limpa_terminal()
     print('⚽⚽⚽  𝕁𝕆𝔾𝕆 𝔻𝔸 𝔽𝕆ℝℂ𝔸 𝔻𝕆𝕊 𝕋𝕀𝕄𝔼𝕊 𝔹ℝ𝔸𝕊𝕀𝕃𝔼𝕀ℝ𝕆𝕊  ⚽⚽⚽!\n')
 
 def verifica_tentivas():
-    '''FUNÇÃO RESPONSAVEL POR:
-    - RECEBER E VALIDAR O NÚMERO DE TENTATIVAS QUE O USUARIO FORNECEU, OCORRERA UM TRATAMENTO DE ERRO CASO O VALOR NÃO SEJA UM NÚMERO
+    '''Função responsável por:
+    Receber e validar o número de tentativas que o usuário forneceu. Ocorre um tratamento de erro caso o valor não seja um número.
     '''
     exibe_niveis()
     
@@ -95,13 +95,13 @@ def verifica_tentivas():
 
     return nivel, tentativas, total_tentativas
     
-
+    
 def recebe_chute(palavra_forca, texto, tentativas, total_tentativas):
-    '''FUNÇÃO RESPONSAVEL POR:
-    - VALIDAR O CHUTE DO USUARIO
-    - EXECUTAR DETERMINADA FUNÇÃO DE ACORDO COM O CHUTE DO USUARIO
-    - A LISTA ver É APENAS PARA ARMAZENAR TODAS AS LETRAS DA palavra_forca, CASO A LISTA verifica SEJA IGUAL A LISTA ver SIGNIFICA QUE O USUARIO ACERTOU A PALAVRA, SE NÃO O PROGRAMA CONTINUARA SENDO EXECUTADO, TODA VEZ QUE A FUNÇÃO FOR EXECUTADA A LISTA ver SERÁ LIMPA COM O METODO .clear PARA EVITAR QUE O OCORRA UM ACUMULO DE LETRAS DA palavra_forca
-    - A LISTA ver SERVE APENAS PARA FAZER ESSA VALIDAÇÃO, POIS NELA FICA ARMAZENADO AS LETRAS SEM QUE OCORRA ALTERAÇÃO NA LISTA, ENTÃO QUANDO ESSA LISTA E A verifica FOREM IGUAIS, SIGNIFICA QUE O USUARIO ACERTOU
+    '''Função responsável por:
+    - Validar o chute do usuário.
+    - Executar determinada função de acordo com o chute do usuário.
+    - A lista ver é usada apenas para armazenar todas as letras da palavra_forca. Caso a lista verifica seja igual à lista ver, significa que o usuário acertou a palavra. Se não, o programa continuará sendo executado. Toda vez que a função for executada, a lista ver será limpa com o método .clear para evitar o acúmulo de letras da palavra_forca.
+    - A lista ver serve apenas para fazer essa validação, pois nela ficam armazenadas as letras sem que ocorra alteração na lista. Quando as listas ver e verifica forem iguais, significa que o usuário acertou.
     '''
     exibe_tentativas(tentativas, total_tentativas)
     dificuldade_escolhida(texto)
@@ -164,10 +164,10 @@ def verifica_letra_chute(chute_usuario,texto,tentativas,total_tentativas):
 
 
 def letra_existe(chute_usuario, texto, tentativas, total_tentativas):
-    '''FUNÇÃO RESPONSAVEL POR:
-    - INFORMAR QUE O CHUTE É CORRETO
-    - ADICIONAR A LETRA NA LISTA verifica QUE ARMAZENA A FORMAÇÃO DA PALAVRA CORRETA E NA MESMA POSIÇÃO EM QUE ESTÁ PRESENTE NA LISTA armazena_forca, DE ACORDO COM OS ACERTOS DO USUARIO
-    - REMOVE E SUBSTITUI O CHUTE DO USUARIO DA PALAVRA QUE ARMAZENA FORCA, COM ISSO CASO DETERMINADA LETRA TENHA MAIS DE UMA OCORRENCIA NA PALAVRA, TODOS AS SUAS OCORRENCIAS SERAM ACRESCENTADAS NA LISTA QUE FORMA A PALAVRA CORRETA E REMOVIDAS DA LISTA armazena_forca EM UM ÚNICO CHUTE DO USUARIO
+    '''Função responsável por:
+    - Informar que o chute está correto.
+    Adicionar a letra na lista verifica, que armazena a formação da palavra correta, na mesma posição em que está presente na lista armazena_forca, de acordo com os acertos do usuário.
+    - Remover e substituir o chute do usuário na palavra que armazena a forca. Com isso, caso determinada letra tenha mais de uma ocorrência na palavra, todas as suas ocorrências serão acrescentadas na lista que forma a palavra correta e removidas da lista armazena_forca em um único chute do usuário.
     '''
     while chute_usuario in armazena_forca:
         for indice ,letra in enumerate(armazena_forca):
@@ -182,14 +182,14 @@ def letra_existe(chute_usuario, texto, tentativas, total_tentativas):
 
 
 def chute_repetido(chute_usuario, texto, tentativas, total_tentativas):
-    '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES CERTOS REPETIDOS'''
+    '''Função responsavel por verificar chutes certos repetidos'''
     titulo_jogo()
     print(f'A LETRA "{chute_usuario}" JÁ FOI INSERIDA!👎\n')
     return recebe_chute(palavra_forca, texto, tentativas, total_tentativas)
 
 
 def chute_errado_repetido(chute_usuario, texto, tentativas, total_tentativas):
-    '''FUNÇÃO RESPONSAVEL POR VERIFICAR CHUTES ERRADOS REPETIDOS'''
+    '''Função responsavel por verificar chutes errados repetidos'''
     titulo_jogo()
     tentativas -= 1
     print(f'A LETRA "{chute_usuario}" NÃO EXISTE NA PALAVRA E JÁ FOI INFORMADA ANTERIORMENTE!👎')
@@ -199,9 +199,9 @@ def chute_errado_repetido(chute_usuario, texto, tentativas, total_tentativas):
 
 
 def letra_nao_existe(chute_usuario, texto, tentativas, total_tentativas):
-    '''FUNÇÃO RESPONSAVEL POR:
-    - SUBTRAIR A TENTATIVA DO USUARIO
-    - INFORMA QUE O CHUTE ESTÁ INCORRETO
+    '''Função responsavel por:
+    - Subtrair a tentativa do usuario
+    - Informar que o chute está incorreto
     '''
     titulo_jogo()
     tentativas -= 1
@@ -216,7 +216,8 @@ def exibe_tentativas(tentativas, total_tentativas):
 
 
 def exibe_niveis():
-    '''FUNÇÃO RESPONSAVEL APENAS POR EXIBIR OS NIVIES DE DIFICULDADES'''
+    '''Função responsavel apenas por exibir os niveis de dificuldades
+    '''
     print("""            DIFICULDADES
             1 - FÁCIL --> 15 Chances
             2 - INTERMEDIARIO --> 10 Chances
@@ -229,12 +230,13 @@ def dificuldade_escolhida(texto):
         
 
 def mensagem_ganhou(palavra_forca):
-    '''FUNÇÃO RESPONSAVEL POR EXIBIR UMA MENSAGEM POSITIVA CASO O USUARIO ACERTE A PALAVRA'''
+    '''Função responsavel por exibir uma mensagem positiva caso o usuario acerte a palavra'''
     print(f'👏👏👏  PARABÉNS,VOCÊ ACERTOU A PALAVRA "{palavra_forca}"  👏👏👏')
     return jogar_novamente(lambda: mensagem_ganhou(palavra_forca))
 
 
 def mensagem_perdeu(total_tentativas, palavra_forca):
+    '''Função responsavel por exibir uma mensagem em caso de derrota no jogo'''
     print('⍨⍨⍨   FIM DE JOGO, VOCÊ PERDEU   ⍨⍨⍨\n')
     print(f'VOCÊ USOU TODAS AS SUAS {total_tentativas} TENTATIVAS ANTES DE DESCOBRIR A PALAVRA FORCA!')
     print(f'A PALAVRA FORCA ERA "{palavra_forca}"')
@@ -242,6 +244,9 @@ def mensagem_perdeu(total_tentativas, palavra_forca):
 
 
 def jogar_novamente(func):
+    '''Função responsavel por: 
+    Perguntar ao usuario se quer jogar novamente, e executar a função de acordo com a resposta do usuario.
+    '''
     print()
     rejogar = input('Jogar novamente,"Sim" para rejogar ou "Nao" para sair.\n? ').capitalize().strip()
 
@@ -259,6 +264,7 @@ def jogar_novamente(func):
 
 
 def agradecimento():
+    '''Função responsavel por exibir mensagem de agradecimento quando o usuario sair do jogo'''
     limpa_terminal()
     print('OBRIGADO POR JOGAR! :)\nESPERO QUE TENHA SE DIVERTIDO!')
     
